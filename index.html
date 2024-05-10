@@ -9,15 +9,49 @@
 <body>
     <script>
         // initial account balance
+let myCardInfo = {
+    name: 'Julius Haruna',
+    accountNumber: '021347900',
+    pin: 2222,
+    bank: 'Gtbank'
+}
 let accountBalance = 1000;
 
+// let choice = prompt('Choose an option:\n1. Gtbank\n2. Access bank\n3. UBA');
+
+
+// switch (choice) {
+//     case '1':
+//         gtBank();
+//         break;
+//     case '2':
+//         accessBank();
+//         break;
+//     case '3':
+//         uba();
+//         // break; 
+// }   
+function insertCard() {
+    alert("Please insert your ATM card.");
+}
+
+// Function to simulate entering PIN
+function enterPin() {
+    let pin = prompt("Enter your ATM PIN:");
+    // For simplicity, let's assume the PIN is correct
+    return pin;
+}
+
 function transferMoney() {
+
     
     let recipientAccountNumber = prompt('Enter recipient account number:');
 
+    let recipientBank = prompt('select recipient bank: \n1. Access bank\n2. Gtbank\n3. UBA\n4. Zenith bank')
+
     let transferAmount = parseFloat(prompt('Enter transfer amount:'));
 
-    let transferPin = prompt('Enter transfer pin:')
+    // let transferPin = prompt('Enter transfer pin:')
 
     if (isNaN(transferAmount) || transferAmount <= 0) {
         alert('Invalid transfer amount.');
@@ -28,7 +62,7 @@ function transferMoney() {
         alert('Invalid account number.')
     }
 
-    let confirmation = confirm(`Transfer #{transferAmount} to account {recipientAccountNumber}?`);
+    let confirmation = confirm(`Are you sure to transfer #{transferAmount} to account {recipientAccountNumber}?`);
 
     if (confirmation) {
         if (transferAmount > accountBalance) {
@@ -68,8 +102,11 @@ function buyAirtime() {
 // Main function to initiate the transfer process
 function main() {
     alert('Welcome to your money transfer app, click OK to continue');
+    insertCard();
+    let pin = enterPin();
 
-    while (true) {
+
+    if (pin) {
 
         let choice = prompt('Choose an option:\n1. Transfer money\n2. Check Balance\n3. Buy Airtime\n4. Exit');
 
