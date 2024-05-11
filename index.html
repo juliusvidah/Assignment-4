@@ -20,7 +20,6 @@ function insertCard() {
     alert("Please insert your ATM card.");
 }
 
-
 function enterPin() {
     let validPin = "2222";
 
@@ -36,6 +35,11 @@ function transferMoney() {
     
     let recipientAccountNumber = prompt('Enter recipient account number:');
 
+    if (isNaN(recipientAccountNumber)){
+        alert('Invalid account number.');
+        return;
+    }
+
     let recipientBank = prompt('select recipient bank: \n1. Access bank\n2. Gtbank\n3. UBA\n4. Zenith bank')
 
     let transferAmount = parseFloat(prompt('Enter transfer amount:'));
@@ -46,9 +50,7 @@ function transferMoney() {
         return;
     }  
 
-    if (isNaN(recipientAccountNumber)){
-        alert('Invalid account number.')
-    }
+    
 
     let confirmation = confirm(`Are you sure to transfer #{transferAmount} to account {recipientAccountNumber}?`);
 
