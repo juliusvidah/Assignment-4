@@ -8,7 +8,6 @@
 </head>
 <body>
     <script>
-        // initial account balance
 let myCardInfo = {
     name: 'Julius Haruna',
     accountNumber: '021347900',
@@ -17,31 +16,21 @@ let myCardInfo = {
 }
 let accountBalance = 1000;
 
-// let choice = prompt('Choose an option:\n1. Gtbank\n2. Access bank\n3. UBA');
-
-
-// switch (choice) {
-//     case '1':
-//         gtBank();
-//         break;
-//     case '2':
-//         accessBank();
-//         break;
-//     case '3':
-//         uba();
-//         // break; 
-// }   
 function insertCard() {
     alert("Please insert your ATM card.");
 }
 
-// Function to simulate entering PIN
+
 function enterPin() {
+    let validPin = "2222";
+
     let pin = prompt("Enter your ATM PIN:");
-    // For simplicity, let's assume the PIN is correct
+    if (pin !== validPin) {
+        alert('Invalid pin');
+        return;
+    }
     return pin;
 }
-
 function transferMoney() {
 
     
@@ -51,7 +40,6 @@ function transferMoney() {
 
     let transferAmount = parseFloat(prompt('Enter transfer amount:'));
 
-    // let transferPin = prompt('Enter transfer pin:')
 
     if (isNaN(transferAmount) || transferAmount <= 0) {
         alert('Invalid transfer amount.');
@@ -123,14 +111,13 @@ function main() {
                 break;    
             case '4':    
                 alert('Thank you for using the money transfer app.');
-                return; // Exit the function
+                return;
             default:
                 alert('Invalid choice. Please try again.');
         }
     }
 }
 
-// Call the main function to start the app
 main();
 
     </script>
