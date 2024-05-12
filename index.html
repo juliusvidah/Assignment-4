@@ -3,120 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking App</title>
+    <title>Document</title>
 </head>
 <body>
     <script>
-let myCardInfo = {
+        let senderAccount = {
     name: 'Julius Haruna',
     accountNumber: '021347900',
-    pin: 2222,
-    bank: 'Gtbank'
-}
-let accountBalance = 1000;
+    pin: '2222',
+    bank: 'Gtbank',
+    accountBalance: 10000
+};
 
+let recipientAccount = {
+    name: 'James John',
+    accountNumber: '123456789',
+    bank: 'Access bank',
+    accountBalance: 2000
+};
 function insertCard() {
     alert("Please insert your ATM card.");
 }
 
-function enterPin() {
-    let validPin = "2222";
-
-    let pin = prompt("Enter your ATM PIN:");
-    if (pin !== validPin) {
-        alert('Invalid pin');
-        return;
-    }
-    return pin;
-}
 function transferMoney() {
-
-    
     let recipientAccountNumber = prompt('Enter recipient account number:');
-
-    if (isNaN(recipientAccountNumber)){
-        alert('Invalid account number.');
+    if (recipientAccountNumber !== recipientAccount.accountNumber) {
+        alert('Invalid recipient account number.');
         return;
     }
 
-    let recipientBank = prompt('select recipient bank: \n1. Access bank\n2. Gtbank\n3. UBA\n4. Zenith bank')
+    let confirmRecipient = confirm(`Please confirm receiver's details:\nName: James John\n Account Number: ${recipientAccountNumber}\n Bank: Access Bank`);
+
 
     let transferAmount = parseFloat(prompt('Enter transfer amount:'));
-
-
     if (isNaN(transferAmount) || transferAmount <= 0) {
         alert('Invalid transfer amount.');
         return;
-    }  
-
-    
-
-    let confirmation = confirm(`Are you sure to transfer #{transferAmount} to account {recipientAccountNumber}?`);
-
-    if (confirmation) {
-        if (transferAmount > accountBalance) {
-            alert('Insufficient funds.');
-        } else {
-            accountBalance -= transferAmount;
-            alert(`Transfer successful!\nNew balance: #{accountBalance}`);
-        }
-    } else {
-        alert('Transfer cancelled.');
     }
+
+    let confirmation = confirm(`Are you sure?\nName: ${recipientAccount.name}\nAccount Number: ${recipientAccountNumber}\nBank: ${recipientAccount.bank}\nTransfer Amount: $${transferAmount}`);
+    if (!confirmation) {
+        alert('Transfer canceled.');
+        return;
+    }
+
+    if (transferAmount > senderAccount.accountBalance) {
+        alert('Insufficient funds.');
+        return;
+    }
+    
+    alert('Transfer Successful!');
+
+    senderAccount.accountBalance -= transferAmount;
+    recipientAccount.accountBalance += transferAmount;
+
+    alert(`Sender's previous account balance: $${10000} \nSender's New balance: $${senderAccount.accountBalance}\nRecipient's previous account balance: $${2000}\nRecipient New Account balance: $${recipientAccount.accountBalance}`);
 }
+
 function checkBalance() {
-   let checkBalance = alert('Account balance: #1000')
-}  
+    alert(`Account balance: $${senderAccount.accountBalance}`);
+}
 
 function buyAirtime() {
     let phoneNumber = prompt('Enter your phone number:');
-    let airtimeAmount = prompt('Enter airtime amount:');
-    if (isNaN(airtimeAmount) || (airtimeAmount <= 0)){
+    let airtimeAmount = parseFloat(prompt('Enter airtime amount:'));
+    if (isNaN(airtimeAmount) || airtimeAmount <= 0) {
         alert('Invalid airtime amount.');
         return;
     }
-    let confirmation = confirm('Transfer + #{airtimeAmoount} + to phone number + {phoneNumber}?');
-    if (confirmation){
-        if(airtimeAmount > accountBalance){
-            alert('Insufficient Funds');
-        } else {
-            accountBalance -= airtimeAmount;
-            alert('Purchase Successful!\nNew Balance: #{accountBalance}');
-        }
-    } else {
 
-        alert('Transfer Cancelled.');
+    let confirmation = confirm(`Transfer ₦${airtimeAmount} to phone number ${phoneNumber}?`);
+    if (!confirmation) {
+        alert('Transfer canceled.');
+        return;
     }
+
+    if (airtimeAmount > senderAccount.accountBalance) {
+        alert('Insufficient funds.');
+        return;
+    }
+
+    senderAccount.accountBalance -= airtimeAmount;
+    alert(`Purchase successful!\nNew balance: $${senderAccount.accountBalance}`);
 }
-// Main function to initiate the transfer process
+
+
 function main() {
     alert('Welcome to your money transfer app, click OK to continue');
-    insertCard();
+    insertCard()
     let pin = enterPin();
+    if (!pin) return;
 
-
-    if (pin) {
-
-        let choice = prompt('Choose an option:\n1. Transfer money\n2. Check Balance\n3. Buy Airtime\n4. Exit');
-
-
-        switch (choice) {
-            case '1':
-                transferMoney();
-                break;
-            case '2':
-                checkBalance();
-                break;
-            case '3':
-                buyAirtime();
-                break;    
-            case '4':    
-                alert('Thank you for using the money transfer app.');
-                return;
-            default:
-                alert('Invalid choice. Please try again.');
-        }
+    let choice = prompt('Choose an option:\n1. Transfer money\n2. Check balance\n3. Buy airtime\n4. Exit');
+    switch (choice) {
+        case '1':
+            transferMoney();
+            break;
+        case '2':
+            checkBalance();
+            break;
+        case '3':
+            buyAirtime();
+            break;
+        case '4':
+            alert('Thank you for using the money transfer app.');
+            break;
+        default:
+            alert('Invalid choice. Please try again.');
     }
+}
+
+function enterPin() {
+    let validPin = '2222';
+    let pin = prompt('Enter your ATM PIN:');
+    if (pin !== validPin) {
+        alert('Invalid pin.');
+        return false;
+    }
+    return pin;
 }
 
 main();
